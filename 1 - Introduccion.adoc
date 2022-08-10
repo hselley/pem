@@ -210,6 +210,185 @@ objetos.
 
 === Características de la programación estructurada
 
+La programación estructurada es un paradigma de programación basado en
+utilizar funciones o subrutinas, y únicamente tres estructuras de
+control:
+
+* secuencia: ejecución de una sentencia tras otra.
+* selección o condicional: ejecución de una sentencia o conjunto de
+sentencias, según el valor de una variable booleana.
+* iteración (ciclo o bucle): ejecución de una sentencia o conjunto de
+sentencias, mientras una variable booleana sea verdadera.
+
+Este paradigma establece que toda función computable puede ser
+implementada en un lenguaje de programación que combine sólo estas tres
+estructuras lógicas o de control.
+
+La estructura de secuencia es la que se da naturalmente en el lenguaje,
+ya que por defecto las sentencias son ejecutadas en el orden en que
+aparecen escritas en el programa.
+
 === Codificación, depuración y compilación
 
+==== Codificación
+
+En términos generales se puede decir que la codificación es la acción y
+resultado de codificar algo. Implícitamente se entiende que existe
+alguna equivalencia entre lo que se desea codificar y el resultado. En
+un significado más específico a la programación para el término, se dice
+que _la codificación es el proceso de escribir un algoritmo en algún
+lenguaje de programación_.
+
+==== Depuración
+
+La depuración de programas es el proceso de identificar y corregir
+errores de programación. En inglés se conoce como debugging, porque se
+asemeja a la eliminación de bichos (bugs), manera en que se conoce
+informalmente a los errores de programación.
+
+La palabra bug se originó en ingeniería. La aplicación del concepto a la
+computación se ha atribuido a la pionera de programación, Grace Hopper.
+En 1944, Hopper, que era entonces una joven oficial de la reserva naval,
+se puso a trabajar en el equipo de la computadora Mark I en Harvard. Más
+tarde describió un incidente en el que se dice que un técnico realmente
+extrajo un insecto (una polilla, de hecho) de entre dos conjuntos de
+cableado en la computadora Mark II. La polilla fue exhibida durante
+muchos años por la Marina y ahora es propiedad del Instituto
+Smithsonian.
+
+image::img/bug.png[El primer bug informático]
+
+==== Compilación
+
+La compilación es el proceso que, en sí, traduce el lenguaje de alto
+nivel en lenguaje de máquina. Dentro de esta etapa pueden reconocerse,
+al menos, cuatro fases:
+
+[arabic]
+. Análisis léxico.
+. Análisis sintáctico.
+. Análisis semántico.
+. Generación de código.
+
+image::img/FasesDeLaCompilacion.png[Fases de la compilación]
+
+El _análisis léxico_ extrae del archivo fuente todas las cadenas de
+caracteres que reconoce como parte del vocabulario y genera un conjunto
+de tokens como salida. En caso de que parte del archivo de entrada no
+pueda reconocerse como lenguaje válido, se generarán los mensajes de
+error correspondientes.
+
+image::img/AnalisisLexico.png[Análisis léxico]
+
+A continuación, durante el análisis sintáctico, se procesa la secuencia
+de tokens gene- rada con anterioridad, y se construye una representación
+intermedia, que aún no es lenguaje de máquina, pero que le permitirá al
+compilador realizar su labor con más facilidad en las fases sucesivas.
+Esta representación suele ser un árbol.
+
+image::img/AnalisisSintactico.png[Análisis Sintáctico]
+
+Durante el análisis semántico se utiliza el árbol generado en la fase
+previa para detectar posibles violaciones a la semántica del lenguaje de
+programación, como podría ser la declaración y el uso consistente de
+identificadores (por ejemplo, que el tipo de dato en el lado derecho de
+una asignación sea acorde con el tipo de dato de la variable destino, en
+el lado izquierdo de la asignación).
+
+Por último, en la generación de código se transforma la representación
+intermedia en lenguaje de máquina (código objeto). En los casos típicos
+esta fase involucra mucho trabajo relacionado con la optimización del
+código, antes de generarse el lenguaje de máquina.
+
+Compilar es el proceso de transformar un programa informático escrito en
+un lenguaje en un programa equivalente en otro formato. Al programa que
+se encarga de compilar se le llama compilador. A veces, a esta tarea se
+le llama ``__ensamblar__'' o ``__construir__'', lo que suele implicar
+otros procesos adicionales, e.j. empaquetarlo en formato binario.
+
+Normalmente, un compilador transforma un lenguaje de alto nivel como C o
+Java, el cual es legible por los humanos, en un lenguaje máquina que la
+CPU puede entender. algunos compiladores que traducen de un lenguaje a
+otro del mismo nivel son llamados transpiladores, por ejemplo al
+compilar de TypeScript a JavaScript. Son considerados herramientas de
+productividad.
+
+Muchos compiladores funcionan de forma anticipada (AOT) o en tiempo de
+ejecución (JIT). Como programador, normalmente llamas a los compiladores
+AOT mediante la linea de comandos o el IDE que estés usando. Un ejemplo
+es el famoso compilador ``gcc''. Los compiladores JIT suelen ser
+transparentes para el programador. Por ejemplo en los exploradores: el
+motor javaScript de SpiderMonkey, de FireFox tiene un JIT embebido que
+compila el JavaScript de una web a código máquina mientras navegas.
+Proyectos como WebAssembly trabajan para mejorar esto.
+
 === Enlace, carga y ejecución de programas
+
+No siempre las aplicaciones se construyen de manera monolítica, a partir
+de un solo archivo fuente. En la práctica sólo se escribe una parte, y
+lo demás se toma de bibliotecas externas que, en la última etapa de la
+compilación, se enlazarán unas con otras para generar la aplicación
+ejecutable final. Ésta es, básicamente, la tarea del enlazador.
+
+Los archivos objeto que se enlazan con nuestro programa se denominan
+bibliotecas externas que, por su parte, pueden haber sido construidas
+por nosotros mismos o pueden provenir de terceras partes (por ejemplo,
+las bibliotecas estándares del compilador). Una biblioteca, en este
+contexto, es una colección de funciones. Este tipo de archivos almacena
+el nombre de cada función, los códigos objeto de las funciones y la
+información de reubicación necesaria para el proceso de enlace.
+Entonces, en el proceso de enlace sólo se añade al código objeto el
+código de la función a la que se hizo referencia.
+
+Un enlazador (en inglés, linker) es un programa que toma los objetos
+generados en los primeros pasos del proceso de compilación, la
+información de todos los recursos necesarios (biblioteca), quita
+aquellos recursos que no necesita, y enlaza el código objeto con su(s)
+biblioteca(s) con lo que finalmente produce un fichero ejecutable o una
+biblioteca. En el caso de los programas enlazados dinámicamente, el
+enlace entre el programa ejecutable y las bibliotecas se realiza en
+tiempo de carga o ejecución del programa.
+
+=== Resumen
+
+Luego de estudiar los conceptos fundamentales referidos a la
+construcción de algoritmos, en el último capítulo se trataron las
+cuestiones relacionadas con el proceso de compilación, que permite
+generar un programa ejecutable. Las etapas más importantes que pueden
+distin- guirse en este proceso son el preprocesamiento, la compilación y
+el enlace.
+
+El preprocesamiento, como su nombre lo indica, es una etapa previa que
+tiene como finalidad ``acomodar'' el código fuente antes de que éste sea
+procesado por el compilador. Para ese fin, el preprocesador modifica el
+código fuente según un conjunto de directivas que el programador puede
+incluir en distintos puntos del programa. La compilación condicional es
+un buen ejemplo: Si se cumple cierta condición, el preprocesador podría
+eliminar porciones del código del programa.
+
+Durante la compilación se traduce el lenguaje de alto nivel en lenguaje
+de máquina. Dentro de esta etapa pueden distinguirse las siguientes
+fases: Análisis léxico, análisis sintáctico, aná- lisis semántico y
+generación de código.
+
+La última de las etapas, el enlace, se encarga de tomar el código de
+bibliotecas externas a las que nuestro programa podría estar haciendo
+referencia, y generar (a partir de nuestro código y el de las
+bibliotecas externas) el programa ejecutable.
+
+image::img/EtapasCompilacion.png[Etapas compilación]
+
+==== Referencias
+
+[arabic]
+. A. Garrido Carrillo, Fundamentos de programación en C++. Las Rozas
+(Madrid): Delta Publicaciones, 2005. [En Línea] Disponible en:
+https://elibro-net.eu1.proxy.openathens.net/es/ereader/anahuac/170189?page=366
+. https://entrenamiento-python-basico.readthedocs.io/es/latest/leccion5/programacion_estructurada.html[Entrenamiento
+Python básico]. Sitio web, consultado el 10 de Agosto 2022.
+. https://es.wikipedia.org/wiki/Sintaxis[Wikipedia]. Sitio web,
+consultado el 10 de Agosto.
+. https://www.computerweekly.com/es/definicion/Bug[Origen del término
+bug]. Sitio web, consultado el 10 de Agosto 2022.
+. López, G,; Jeder, I.; Vega, A.; Análisis y diseño de algoritmos.
+Alfaomega.
